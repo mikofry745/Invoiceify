@@ -6,7 +6,7 @@ namespace Invoiceify.Entities;
 public class InvoiceifyDbContext : DbContext
 {
     private const string _connectionString = 
-        "Server=localhost;Database=InvoiceifyDb;Trusted_Connection=True;";
+        "Server=localhost;Database=InvoiceDb;Trusted_Connection=True;";
     
     public DbSet<Invoice> Invoices { get; set; }
     public DbSet<Product> Products { get; set; }
