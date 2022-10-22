@@ -20,9 +20,7 @@ public class BusinessProfile
     public string EmailAddress { get; set; }
     [Required]
     public string Name { get; set; }
-    [Required]
-    public bool IsOrganization { get; set; }
-    
+
     public string? PhoneNumber { get; set; }
     public string? Country { get; set; }
 
