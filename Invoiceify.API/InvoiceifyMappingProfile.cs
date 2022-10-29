@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Invoiceify.API.Dtos.CustomerDtos;
 using Invoiceify.API.Dtos.InvoiceDtos;
 using Invoiceify.API.Dtos.ProductDtos;
 using Invoiceify.Entities.Entities;
@@ -53,5 +54,10 @@ public class InvoiceifyMappingProfile: Profile
         CreateMap<Product, ProductDto>();
 
         CreateMap<CreateProductDto, Product>();
+        
+        //Customer dtos mapping profiles
+        CreateMap<Customer, CustomerDto>();
+
+        CreateMap<CreateCustomerDto, Customer>();
     }
 }
