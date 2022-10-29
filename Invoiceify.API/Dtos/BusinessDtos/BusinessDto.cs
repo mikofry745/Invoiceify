@@ -1,4 +1,5 @@
-﻿using Invoiceify.API.Dtos.ProductDtos;
+﻿using Invoiceify.API.Dtos.CustomerDtos;
+using Invoiceify.API.Dtos.ProductDtos;
 
 namespace Invoiceify.API.Dtos.InvoiceDtos;
 
@@ -16,4 +17,6 @@ public class BusinessDto
     public string? PhoneNumber { get; set; }
     public string? Country { get; set; }
     public List<ProductDto> Products { get; set; }
+    public List<CustomerDto> Customers { get; set; }
+    
 }
