@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Invoiceify.API.Controllers;
 
+[Route("api/businesses")]
+[ApiController]
 public class BusinessController : ControllerBase
 {
     private readonly IBusinessService _businessService;
@@ -31,7 +33,7 @@ public class BusinessController : ControllerBase
     /// </summary>
     /// <param name="id">Id of a business</param>
     /// <returns>Status no content (204)</returns>
-    [HttpDelete("delete/{id}")]
+    [HttpDelete("{id}/delete")]
     public async Task<IActionResult> DeleteAsync([FromRoute] int id)
     {
         await _businessService.DeleteBusinessAsync(id);
@@ -40,12 +42,12 @@ public class BusinessController : ControllerBase
     }
 
     /// <summary>
-    /// Edits the parameters of the selected business to the specified parameters
+    /// Updates the parameters of the selected business to the specified parameters
     /// </summary>
     /// <param name="id">Id of a business</param>
-    /// <param name="updateBusinessDto">Parameters of the edited business</param>
+    /// <param name="updateBusinessDto">Parameters to which the business parameters will be changed</param>
     /// <returns>Status ok (200)</returns>
-    [HttpPut("update/{id}")]
+    [HttpPut("{id}/update")]
     public async Task<IActionResult> UpdateAsync([FromRoute] int id, [FromBody] UpdateBusinessDto updateBusinessDto)
     {
         await _businessService.UpdateBusiness(id, updateBusinessDto);
@@ -57,7 +59,7 @@ public class BusinessController : ControllerBase
     /// Returns all available business basic information(name, email and isOrganization) in the database
     /// </summary>
     /// <returns>List of business basic information</returns>
-    [HttpGet ("businessinfo")]
+    [HttpGet ("inforamtion")]
     public async Task<ActionResult<IEnumerable<BusinessDto>>> GetAllBasicInformationAsync()
     {
         var businessBasicInformation = await _businessService.GetAllBusinessBasicInformationAsync();
@@ -66,10 +68,10 @@ public class BusinessController : ControllerBase
     }
     
     /// <summary>
-    /// Returns all available businesses in the database
+    /// Returns all available businesses
     /// </summary>
     /// <returns>List of businesses</returns>
-    [HttpGet ("businesses")]
+    [HttpGet]
     public async Task<ActionResult<IEnumerable<BusinessDto>>> GetAllAsync()
     {
         var businesses = await _businessService.GetAllBusinessesAsync();
@@ -82,7 +84,7 @@ public class BusinessController : ControllerBase
     /// </summary>
     /// <param name="id">Id of a business</param>
     /// <returns>Business</returns>
-    [HttpGet("business/{id}")]
+    [HttpGet("{id}")]
     public async Task<ActionResult<BusinessDto>> GetByIdAsync([FromRoute] int id)
     {
         var business = await _businessService.GetBusinessByIdAsync(id);
