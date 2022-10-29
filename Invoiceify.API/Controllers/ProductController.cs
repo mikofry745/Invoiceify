@@ -33,7 +33,7 @@ public class ProductController : ControllerBase
     /// Deletes the product with the specified id
     /// </summary>
     /// <param name="businessId">Id of a business</param>
-    /// /// <param name="productId">Id of a product</param>
+    /// <param name="productId">Id of a product</param>
     /// <returns>Status no content (204)</returns>
     [HttpDelete("delete/{productId}")]
     public async Task<IActionResult> DeleteAsync([FromRoute]int businessId, [FromRoute]int productId)
@@ -48,12 +48,12 @@ public class ProductController : ControllerBase
     /// </summary>
     /// <param name="businessId">Id of a business</param>
     /// <param name="productId">Id of a product</param>
-    /// <param name="updateBusinessDto">Parameters to which the product parameters will be changed</param>
+    /// <param name="updateProductDto">Parameters to which the product parameters will be changed</param>
     /// <returns>Status ok (200)</returns>
     [HttpPut("update/{productId}")]
-    public async Task<IActionResult> UpdateAsync([FromRoute]int businessId, [FromRoute] int productId, [FromBody]UpdateProductDto updateBusinessDto)
+    public async Task<IActionResult> UpdateAsync([FromRoute]int businessId, [FromRoute] int productId, [FromBody]UpdateProductDto updateProductDto)
     {
-        await _productService.UpdateProductAsync(businessId, productId, updateBusinessDto);
+        await _productService.UpdateProductAsync(businessId, productId, updateProductDto);
     
         return Ok();
     }
@@ -76,7 +76,7 @@ public class ProductController : ControllerBase
     /// </summary>
     /// <param name="businessId">Id of a business</param>
     /// <param name="productId">Id of a product</param>
-    /// <returns>Business</returns>
+    /// <returns>Product</returns>
     [HttpGet("{productId}")]
     public async Task<ActionResult<ProductDto>> GetByIdAsync([FromRoute]int businessId, [FromRoute] int productId)
     {
