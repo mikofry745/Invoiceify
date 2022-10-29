@@ -1,15 +1,40 @@
+using Invoiceify.API;
+using Invoiceify.API.Middleware;
+using Invoiceify.API.Services;
+using Invoiceify.API.Services.Interfaces;
+using Invoiceify.Entities;
+using NLog.Web;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Add logging
+builder.Logging.ClearProviders();
+builder.Logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
+builder.Host.UseNLog();
 
+// Add services to the container.
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddDbContext<InvoiceifyDbContext>();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddScoped<BusinessSeeder>();
+builder.Services.AddScoped<IBusinessService, BusinessService>();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ErrorHandlingMiddleware>();
+
+//Add Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//Build app
 var app = builder.Build();
+app.UseMiddleware<ErrorHandlingMiddleware>();
 
-// Configure the HTTP request pipeline.
+//Seeder
+var scope = app.Services.CreateScope();
+var seeder = scope.ServiceProvider.GetRequiredService<BusinessSeeder>();
+seeder.Seed();
+
+//Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
