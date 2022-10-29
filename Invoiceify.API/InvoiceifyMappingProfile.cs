@@ -51,5 +51,7 @@ public class InvoiceifyMappingProfile: Profile
 
         //Product dtos mapping profiles
         CreateMap<Product, ProductDto>();
+
+        CreateMap<CreateProductDto, Product>();
     }
 }
