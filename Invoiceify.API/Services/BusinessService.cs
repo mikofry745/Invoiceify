@@ -44,7 +44,7 @@ public class BusinessService : IBusinessService
 
         if (business is null)
         {
-            throw new NotFoundException("Business with given id: {businessId} not found");
+            throw new NotFoundException($"Business with given id: {businessId} not found");
         }
 
         _dbContext.Businesses.Remove(business);
@@ -59,7 +59,7 @@ public class BusinessService : IBusinessService
 
         if (business is null)
         {
-            throw new NotFoundException("Business with given id: {businessId} not found");
+            throw new NotFoundException($"Business with given id: {businessId} not found");
         }
         
         if (business.Profile is null)
@@ -97,6 +97,7 @@ public class BusinessService : IBusinessService
         var businesses = await _dbContext.Businesses
             .Include(b => b.Profile)
             .Include(b => b.Products)
+            .Include(b => b.Customers)
             .ToListAsync();
         
         var businessDtos = _mapper.Map<List<BusinessDto>>(businesses);
@@ -108,12 +109,12 @@ public class BusinessService : IBusinessService
     {
         var businesses = await _dbContext.Businesses
             .Include(b => b.Profile)
-            .Include(b => b.Products)
+            .Include(b => b.Customers)
             .FirstOrDefaultAsync(b => b.Id == businessId);
 
         if (businesses is null)
         {
-            throw new NotFoundException("Business with given id: {businessId} not found");
+            throw new NotFoundException($"Business with given id: {businessId} not found");
         }
 
         var businessDto = _mapper.Map<BusinessDto>(businesses);
