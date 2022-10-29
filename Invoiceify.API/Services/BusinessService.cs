@@ -28,34 +28,38 @@ public class BusinessService : IBusinessService
         business.Invoices = new List<Invoice>();
         business.Products = new List<Product>();
 
-        _dbContext.Businesses.Add(business);
-        _dbContext.SaveChanges();
+        await _dbContext.Businesses.AddAsync(business);
+        await _dbContext.SaveChangesAsync();
 
         return business.Id;
     }
 
     public async Task DeleteBusinessAsync(int businessId)
     {
-        var business = _dbContext.Businesses
-            .FirstOrDefault(b => b.Id == businessId);
+        _logger.LogWarning($"Business with id: {businessId} DELETE action invoked");
+            
+        var business = await _dbContext.Businesses
+            .Include(b => b.Profile)
+            .FirstOrDefaultAsync(r => r.Id == businessId);
 
         if (business is null)
         {
-            throw new NotFoundException("Business not found");
+            throw new NotFoundException("Business with given id: {businessId} not found");
         }
 
         _dbContext.Businesses.Remove(business);
-        _dbContext.SaveChanges();
+        await _dbContext.SaveChangesAsync();
     }
 
     public async Task UpdateBusiness(int businessId, UpdateBusinessDto updateBusinessDto)
     {
-        var business = _dbContext.Businesses
-            .FirstOrDefault(r => r.Id == businessId);
+        var business = await _dbContext.Businesses
+            .Include(b => b.Profile)
+            .FirstOrDefaultAsync(r => r.Id == businessId);
 
         if (business is null)
         {
-            throw new NotFoundException("Business not found");
+            throw new NotFoundException("Business with given id: {businessId} not found");
         }
         
         if (business.Profile is null)
@@ -64,6 +68,7 @@ public class BusinessService : IBusinessService
         }
         
         business.DefaultInvoiceNote = updateBusinessDto.DefaultInvoiceNote;
+        business.IsOrganization = updateBusinessDto.IsOrganization;
         business.Profile.Name = updateBusinessDto.Name;
         business.Profile.City = updateBusinessDto.City;
         business.Profile.Street = updateBusinessDto.Street;
@@ -73,14 +78,14 @@ public class BusinessService : IBusinessService
         business.Profile.PhoneNumber = updateBusinessDto.PhoneNumber;
         business.Profile.TaxIdentificationNumber = updateBusinessDto.TaxIdentificationNumber;
         
-        _dbContext.SaveChanges();
+        await _dbContext.SaveChangesAsync();
     }
 
     public async Task<IEnumerable<BusinessBasicInformationDto>> GetAllBusinessBasicInformationAsync()
     {
-        var businesses = _dbContext.Businesses
+        var businesses = await _dbContext.Businesses
             .Include(b => b.Profile)
-            .ToList();
+            .ToListAsync();
         
         var businessBasicInformationDtos = _mapper.Map<List<BusinessBasicInformationDto>>(businesses);
 
@@ -89,10 +94,10 @@ public class BusinessService : IBusinessService
 
     public async Task<IEnumerable<BusinessDto>> GetAllBusinessesAsync()
     {
-        var businesses = _dbContext.Businesses
+        var businesses = await _dbContext.Businesses
             .Include(b => b.Profile)
             .Include(b => b.Products)
-            .ToList();
+            .ToListAsync();
         
         var businessDtos = _mapper.Map<List<BusinessDto>>(businesses);
 
@@ -101,14 +106,14 @@ public class BusinessService : IBusinessService
 
     public async Task<BusinessDto> GetBusinessByIdAsync(int businessId)
     {
-        var businesses = _dbContext.Businesses
+        var businesses = await _dbContext.Businesses
             .Include(b => b.Profile)
             .Include(b => b.Products)
-            .FirstOrDefault(b => b.Id == businessId);
+            .FirstOrDefaultAsync(b => b.Id == businessId);
 
         if (businesses is null)
         {
-            throw new NotFoundException("Business not found");
+            throw new NotFoundException("Business with given id: {businessId} not found");
         }
 
         var businessDto = _mapper.Map<BusinessDto>(businesses);
