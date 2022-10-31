@@ -40,7 +40,7 @@ public class BusinessService : IBusinessService
             
         var business = await _dbContext.Businesses
             .Include(b => b.Profile)
-            .FirstOrDefaultAsync(r => r.Id == businessId);
+            .FirstOrDefaultAsync(b => b.Id == businessId);
 
         if (business is null)
         {
@@ -55,7 +55,7 @@ public class BusinessService : IBusinessService
     {
         var business = await _dbContext.Businesses
             .Include(b => b.Profile)
-            .FirstOrDefaultAsync(r => r.Id == businessId);
+            .FirstOrDefaultAsync(b => b.Id == businessId);
 
         if (business is null)
         {
@@ -98,6 +98,7 @@ public class BusinessService : IBusinessService
             .Include(b => b.Profile)
             .Include(b => b.Products)
             .Include(b => b.Customers)
+            .Include(b => b.Invoices)
             .ToListAsync();
         
         var businessDtos = _mapper.Map<List<BusinessDto>>(businesses);

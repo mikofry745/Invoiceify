@@ -24,7 +24,7 @@ public class ProductService : IProductService
         var business = await _dbContext
             .Businesses
             .Include(b => b.Products)
-            .FirstOrDefaultAsync(p => p.Id == businessId);
+            .FirstOrDefaultAsync(b => b.Id == businessId);
 
         if (business is null)
         {
@@ -45,7 +45,7 @@ public class ProductService : IProductService
         var business = await _dbContext
             .Businesses
             .Include(b => b.Products)
-            .FirstOrDefaultAsync(p => p.Id == businessId);
+            .FirstOrDefaultAsync(b => b.Id == businessId);
 
         if (business is null)
         {
@@ -68,7 +68,7 @@ public class ProductService : IProductService
         var business = await _dbContext
             .Businesses
             .Include(b => b.Products)
-            .FirstOrDefaultAsync(p => p.Id == businessId);
+            .FirstOrDefaultAsync(b => b.Id == businessId);
 
         if (business is null)
         {
@@ -96,7 +96,7 @@ public class ProductService : IProductService
         var business = await _dbContext
             .Businesses
             .Include(b => b.Products)
-            .FirstOrDefaultAsync(p => p.Id == businessId);
+            .FirstOrDefaultAsync(b => b.Id == businessId);
 
         if (business is null)
         {
@@ -113,7 +113,7 @@ public class ProductService : IProductService
         var business = await _dbContext
             .Businesses
             .Include(b => b.Products)
-            .FirstOrDefaultAsync(p => p.Id == businessId);
+            .FirstOrDefaultAsync(b => b.Id == businessId);
 
         if (business is null)
         {

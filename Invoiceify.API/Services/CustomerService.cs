@@ -24,7 +24,7 @@ public class CustomerService : ICustomerService
         var business = await _dbContext
             .Businesses
             .Include(b => b.Customers)
-            .FirstOrDefaultAsync(p => p.Id == businessId);
+            .FirstOrDefaultAsync(b => b.Id == businessId);
 
         if (business is null)
         {
@@ -45,7 +45,7 @@ public class CustomerService : ICustomerService
         var business = await _dbContext
             .Businesses
             .Include(b => b.Customers)
-            .FirstOrDefaultAsync(p => p.Id == businessId);
+            .FirstOrDefaultAsync(b => b.Id == businessId);
 
         if (business is null)
         {
@@ -68,7 +68,7 @@ public class CustomerService : ICustomerService
         var business = await _dbContext
             .Businesses
             .Include(b => b.Customers)
-            .FirstOrDefaultAsync(p => p.Id == businessId);
+            .FirstOrDefaultAsync(b => b.Id == businessId);
         
         if (business is null)
         {
@@ -100,7 +100,7 @@ public class CustomerService : ICustomerService
         var business = await _dbContext
             .Businesses
             .Include(b => b.Customers)
-            .FirstOrDefaultAsync(p => p.Id == businessId);
+            .FirstOrDefaultAsync(b => b.Id == businessId);
 
         if (business is null)
         {
@@ -117,7 +117,7 @@ public class CustomerService : ICustomerService
         var business = await _dbContext
             .Businesses
             .Include(b => b.Customers)
-            .FirstOrDefaultAsync(p => p.Id == businessId);
+            .FirstOrDefaultAsync(b => b.Id == businessId);
 
         if (business is null)
         {
