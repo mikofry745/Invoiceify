@@ -6,7 +6,7 @@ using Invoiceify.Entities.Entities;
 
 namespace Invoiceify.API;
 
-public class InvoiceifyMappingProfile: Profile
+public class InvoiceifyMappingProfile : Profile
 {
     public InvoiceifyMappingProfile()
     {
@@ -52,12 +52,15 @@ public class InvoiceifyMappingProfile: Profile
 
         //Product dtos mapping profiles
         CreateMap<Product, ProductDto>();
-
         CreateMap<CreateProductDto, Product>();
         
         //Customer dtos mapping profiles
         CreateMap<Customer, CustomerDto>();
-
         CreateMap<CreateCustomerDto, Customer>();
+        
+        //Invoice dtos mapping profiles
+        CreateMap<InvoiceProduct, InvoiceProductDto>();
+        CreateMap<InvoiceCustomer, CustomerDto>();
+        CreateMap<Invoice, InvoiceDto>();
     }
 }
