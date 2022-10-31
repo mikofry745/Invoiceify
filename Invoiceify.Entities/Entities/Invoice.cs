@@ -30,12 +30,12 @@ public class Invoice
     public DateTime? PaymentDate { get; set; }
     
     public int IssuerId { get; set; }
-    public virtual InvoiceCustomer? Issuer { get; set; }
+    public virtual InvoiceCustomer Issuer { get; set; }
 
     public int RecipientId { get; set; }
-    public virtual InvoiceCustomer? Recipient { get; set; }
+    public virtual InvoiceCustomer Recipient { get; set; }
 
-    public virtual ICollection<InvoiceProduct>? Products { get; set; }
+    public ICollection<InvoiceProduct> Products { get; set; }
     
     public int BusinessId { get; set; }
     public Business? Business { get; set; }
