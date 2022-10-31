@@ -18,5 +18,6 @@ public class BusinessDto
     public string? Country { get; set; }
     public List<ProductDto> Products { get; set; }
     public List<CustomerDto> Customers { get; set; }
+    public List<InvoiceDto> Invoices { get; set; }
     
 }
